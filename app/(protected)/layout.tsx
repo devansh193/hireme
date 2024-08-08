@@ -12,11 +12,10 @@ const MainLayout = async ({ children }: MainLayoutProps) => {
 
   return (
     <>
-
-    <div className="h-screen py-4 px-2">
-    <Navbar session={session}/>
-      {children}
-    </div>
+      <div className="h-screen py-4 px-2">
+        <Navbar session={session} />
+        {children}
+      </div>
     </>
   );
 };
