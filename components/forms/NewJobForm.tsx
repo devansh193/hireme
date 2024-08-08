@@ -39,12 +39,11 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
       salary: "",
       currency: "",
       location: "",
-      status: "",
     },
   });
 
   const handleFormSubmit = async (values: NewJob) => {
-    const { currency, location, status } = values;
+    const { currency, location } = values;
 
     if (currency !== "USD" && currency !== "INR") {
       toast({
@@ -65,13 +64,7 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
       });
       return;
     }
-    if (status !== "ACTIVE" && status !== "INACTIVE") {
-      toast({
-        title: "Please select the state",
-        variant: "destructive",
-      });
-      return;
-    }
+
 
     const response = await createJob(values);
 
@@ -235,30 +228,6 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
                     <SelectItem value="REMOTE">Remote</SelectItem>
                     <SelectItem value="HYBRID">Hybird</SelectItem>
                     <SelectItem value="OFFICE">Office</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Publish*</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select the publish state" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ACTIVE">ACTIVE</SelectItem>
-                    <SelectItem value="INACTIVE">INACTIVE</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

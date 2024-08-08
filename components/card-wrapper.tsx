@@ -10,17 +10,16 @@ import {
 interface CardWrapperProps {
   children: React.ReactNode;
   title: string;
-  cols: number;
 }
 
-export const CardWrapper = ({ children, title, cols }: CardWrapperProps) => {
+export const CardWrapper = ({ children, title }: CardWrapperProps) => {
   return (
     <div>
-      <Card className="w-full shadow-md">
+      <Card className="max-w-screen shadow-md">
         <CardHeader>
           <CardTitle>{title}</CardTitle>
         </CardHeader>
-        <CardContent className={`grid grid-cols-${cols} gap-4`}>
+        <CardContent className={`grid grid-cols-1 gap-4`}>
           {children}
         </CardContent>
         <CardFooter></CardFooter>

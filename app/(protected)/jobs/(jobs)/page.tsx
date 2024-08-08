@@ -1,5 +1,5 @@
 "use client";
-import { getActiveJobs, fetchActiveJobs } from "@/actions/job";
+import {  fetchActiveJobs } from "@/actions/job";
 import Sidebar from "@/components/Sidebar";
 import { JobDisplay, JobLoading } from "@/components/job-display";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +14,7 @@ const JobsPage = () => {
     const fetchJobs = async () => {
       setLoading(true);
       //@ts-ignore
-      const response = await getActiveJobs({});
+      const response = await fetchActiveJobs({});
       if (response.status === "success") {
         //@ts-ignore
         setJobs(response.data);

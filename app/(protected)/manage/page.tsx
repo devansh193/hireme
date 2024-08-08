@@ -13,7 +13,7 @@ const ManageJobsPage = async () => {
     redirect("/");
   }
   return (
-    <main className="max-w-screen-2xl mx-auto w-full mt-4">
+    <main className="max-w-screen mx-auto w-full mt-4">
       <div className="flex">
           <ActiveJobs />
       </div>

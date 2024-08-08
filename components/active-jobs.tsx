@@ -5,7 +5,6 @@ import { JobDisplay, JobLoading } from "./job-display";
 import { Job } from "@prisma/client";
 import { fetchActiveJobs } from "@/actions/job";
 import { useRouter } from "next/navigation";
-import Sidebar from "./Sidebar";
 
 export const ActiveJobs = () => {
   const router = useRouter();
@@ -28,20 +27,20 @@ export const ActiveJobs = () => {
 
     fetchJobs();
   }, []);
-  
   if(loading){
     return(
-      <div className="flex">
-        <CardWrapper cols={1} title={"Publisher jobs"}>
-          <JobLoading/>
-        </CardWrapper>
-      </div>
+      <main className="max-w-full mx-2">
+        <div className="flex">
+          <div className="w-full">
+            <JobLoading />
+          </div>
+        </div>
+      </main>
     )
   }
-
   return (
     <div className="flex">
-      <CardWrapper cols={1} title={"Published jobs"}>
+      <CardWrapper title={"Active Jobs"}>
         {jobs.map((job) => (
           <JobDisplay key={job.id} job={job} />
         ))}

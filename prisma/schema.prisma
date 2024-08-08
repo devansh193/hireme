@@ -80,7 +80,6 @@ model Job {
   salary      String
   currency    Currency @default(INR)
   location    String
-  status       Status  @default(ACTIVE)
   country     String?
 
   user User @relation(fields: [userId], references: [id])

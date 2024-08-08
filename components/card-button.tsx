@@ -4,7 +4,7 @@ import { Job } from "@prisma/client";
 import { EditJobModal } from "./EditJobModal";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import {updateStatus} from "@/actions/job";
+import {deleteJob} from "@/actions/job";
 import { toast } from "./ui/use-toast";
 
 type CardButtonProps = {
@@ -16,38 +16,26 @@ export const CardButton = ({ job }: CardButtonProps) => {
   const pathname = usePathname();
   const userRole = session?.user.role;
   
-  const handleClick = async () => {
-    try {
-      const response = await updateStatus(job);
-      if (response.status === 'success') {
+  const handleDelete = async ()=>{
+    const res = await deleteJob(job.id);
+    if(res.status==="success"){
         toast({
-          title: response.message,
-          variant: "default",
-        });
-        return;
-      }
-      toast({
-        title: response.message,
-        variant: "default",
-      });
-    } catch (error) {
-      console.error("Failed to update job status", error);
+            description: "deleted!",
+        })
+    }else {
+        toast({
+            description: "failed to delete",
+        })
     }
-  };
+}
 
   if(userRole === "ADMIN"){
     return (
       <>
-        {job.status === "INACTIVE" ? (
           <div className="">
             <EditJobModal id={job.id} />
-            <Button className="ml-2" onClick={handleClick} variant={"default"} size={"sm"}>Publish</Button>
+            <Button className="ml-2" onClick={handleDelete} variant={"default"} size={"sm"}>Delete</Button>
           </div>
-        ) : (
-          <div className="flex items-center justify-between gap-2">
-            <EditJobModal id={job.id} />
-          </div>
-        )}
       </>
     );
   } 

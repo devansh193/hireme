@@ -21,8 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { NewJob, newJobSchema } from "@/zod/job";
 import { useToast } from "../ui/use-toast";
-import { createJob, fetchJobDetails, updateJob } from "@/actions/job";
-import useRouter from "next/navigation";
+import { fetchJobDetails, updateJob } from "@/actions/job";
 
 type NewJobFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -58,7 +57,6 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
       salary: "",
       currency: "",
       location: "",
-      status: "",
     },
   });
 
@@ -253,30 +251,6 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
                     <SelectItem value="REMOTE">Remote</SelectItem>
                     <SelectItem value="HYBRID">Hybrid</SelectItem>
                     <SelectItem value="OFFICE">Office</SelectItem>
-                  </SelectContent>
-                </Select>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="status"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>State*</FormLabel>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
-                  <FormControl>
-                    <SelectTrigger className="w-full">
-                      <SelectValue placeholder="Select the publish state" />
-                    </SelectTrigger>
-                  </FormControl>
-                  <SelectContent>
-                    <SelectItem value="ACTIVE">ACTIVE</SelectItem>
-                    <SelectItem value="INACTIVE">INACTIVE</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />
