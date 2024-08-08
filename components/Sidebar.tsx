@@ -77,8 +77,8 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
 
   return (
     <aside className="relative h-full p-4 min-w-48 border border-gray-200 rounded">
-      <h2 className="mb-4">Job Filters</h2>
-      <div className="flex flex-col gap-2">
+      <h2 className="mb-4 font-semibold text-lg">Filters</h2>
+      <div className="flex flex-col gap-4">
         <Input
           type="text"
           name="title"
@@ -91,7 +91,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
           name="companyName"
           placeholder="Company Name"
           onChange={handleFilterChange}
-          className="border p-2 rounded-md"
+          className="border p-2 rounded-md text-black"
         />
 
         <Select
@@ -129,7 +129,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
           </SelectContent>
         </Select>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-2">
           <Slider
             defaultValue={filters.salRange}
             max={1000000}

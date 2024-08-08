@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import { CardWrapper } from "./card-wrapper";
-import { JobDisplay } from "./job-display";
+import { JobDisplay, JobLoading } from "./job-display";
 import { Job } from "@prisma/client";
 import { fetchInActiveJobs } from "@/actions/job";
 import { useRouter } from "next/navigation";
@@ -26,6 +26,14 @@ export const InActiveJobs = () => {
 
     fetchJobs();
   }, []);
+
+  if (loading) {
+    <div>
+      <CardWrapper cols={1} title={"Unpublished jobs"}>
+        <JobLoading />
+      </CardWrapper>
+    </div>;
+  }
 
   return (
     <div>

@@ -1,10 +1,11 @@
-"use client"
+"use client";
 import { useEffect, useState } from "react";
 import { CardWrapper } from "./card-wrapper";
-import { JobDisplay } from "./job-display";
+import { JobDisplay, JobLoading } from "./job-display";
 import { Job } from "@prisma/client";
 import { fetchActiveJobs } from "@/actions/job";
 import { useRouter } from "next/navigation";
+import Sidebar from "./Sidebar";
 
 export const ActiveJobs = () => {
   const router = useRouter();
@@ -23,14 +24,23 @@ export const ActiveJobs = () => {
         router.refresh();
       }
       setLoading(false);
-      
     };
 
     fetchJobs();
   }, []);
+  
+  if(loading){
+    return(
+      <div className="flex">
+        <CardWrapper cols={1} title={"Publisher jobs"}>
+          <JobLoading/>
+        </CardWrapper>
+      </div>
+    )
+  }
 
   return (
-    <div>
+    <div className="flex">
       <CardWrapper cols={1} title={"Published jobs"}>
         {jobs.map((job) => (
           <JobDisplay key={job.id} job={job} />

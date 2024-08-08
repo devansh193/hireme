@@ -5,6 +5,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
+import Footer from "@/components/Footer";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -27,7 +28,7 @@ export default async function RootLayout({
       <SessionProvider>
         <body
           className={cn(
-            "h-full bg-background font-sans antialiased",
+            "h-screen bg-background font-sans antialiased",
             fontSans.variable
           )}
         >

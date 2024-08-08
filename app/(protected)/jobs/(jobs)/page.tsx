@@ -1,5 +1,5 @@
 "use client";
-import { getJobs } from "@/actions/job";
+import { getActiveJobs, fetchActiveJobs } from "@/actions/job";
 import Sidebar from "@/components/Sidebar";
 import { JobDisplay, JobLoading } from "@/components/job-display";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +14,7 @@ const JobsPage = () => {
     const fetchJobs = async () => {
       setLoading(true);
       //@ts-ignore
-      const response = await getJobs({});
+      const response = await getActiveJobs({});
       if (response.status === "success") {
         //@ts-ignore
         setJobs(response.data);
@@ -32,11 +32,7 @@ const JobsPage = () => {
             <Sidebar setJobs={setJobs} setLoading={setLoading} />
           </div>
           <div className="w-full">
-            {jobs &&
-              jobs.map((job) => {
-                return <JobLoading key={job.id} />;
-              })}
-            {jobs.length === 0 ? <JobLoading /> : null}
+            <JobLoading />
           </div>
         </div>
       </main>

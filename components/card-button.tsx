@@ -41,7 +41,7 @@ export const CardButton = ({ job }: CardButtonProps) => {
         {job.status === "INACTIVE" ? (
           <div className="">
             <EditJobModal id={job.id} />
-            <Button className="mt-2" onClick={handleClick} variant={"default"}>Publish</Button>
+            <Button className="ml-2" onClick={handleClick} variant={"default"} size={"sm"}>Publish</Button>
           </div>
         ) : (
           <div className="flex items-center justify-between gap-2">

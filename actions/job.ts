@@ -144,6 +144,42 @@ const GetJobSchema = z.object({
 
 type GetJobSchemaType = z.infer<typeof GetJobSchema>;
 
+export const getActiveJobs = async (data: GetJobSchemaType) => {
+  const session = await auth();
+
+  if (!session) {
+    return { status: "error", message: "Internal Server Error" };
+  }
+
+  const { salRange, title, companyName, location, currency } = data;
+
+  try {
+    const jobs = await prisma.job.findMany({
+      where: {
+        status: "ACTIVE",
+        ...(title && { title: { contains: title, mode: "insensitive" } }),
+        ...(companyName && {
+          companyName: { contains: companyName, mode: "insensitive" },
+        }),
+        ...(location && {
+          location: { contains: location, mode: "insensitive" },
+        }),
+        ...(currency && { currency }),
+      },
+    });
+
+    const filteredJobs = jobs.filter((job) => {
+      const salary = parseFloat(job.salary);
+      return !isNaN(salary) && salary >= salRange[0] && salary <= salRange[1];
+    });
+
+    return { status: "success", data: filteredJobs };
+  } catch (error) {
+    console.log(error);
+    return { status: "error", message: "Internal Server Error" };
+  }
+};
+
 export const getJobs = async (data: GetJobSchemaType) => {
   const session = await auth();
 

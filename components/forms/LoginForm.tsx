@@ -46,11 +46,7 @@ const LoginForm = () => {
   };
 
   return (
-<<<<<<< HEAD
-    <Card className="w-[400px] shadow-lg ">
-=======
     <Card className="w-[400px] shadow-lg">
->>>>>>> b30ea446a68b0588a10498cb03925b8b9d2ec57d
       <CardHeader>
         <CardTitle>
           <h1 className="font-semibold text-2xl">Login</h1>
