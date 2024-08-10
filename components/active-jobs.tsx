@@ -5,30 +5,20 @@ import { JobDisplay, JobLoading } from "./job-display";
 import { Job } from "@prisma/client";
 import { fetchActiveJobs } from "@/actions/job";
 import { useRouter } from "next/navigation";
+import { useGetJobs } from "@/features/jobs/actions/use-get-jobs";
+import {
+  Card,
+  CardTitle,
+  CardFooter,
+  CardHeader,
+  CardContent,
+  CardDescription,
+} from "./ui/card";
 
 export const ActiveJobs = () => {
-  const router = useRouter();
-
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    const fetchJobs = async () => {
-      setLoading(true);
-      //@ts-ignore
-      const response = await fetchActiveJobs({});
-      if (response.status === "success") {
-        //@ts-ignore
-        setJobs(response.data);
-        router.refresh();
-      }
-      setLoading(false);
-    };
-
-    fetchJobs();
-  }, []);
-  if(loading){
-    return(
+  const { isLoading, data: jobs } = useGetJobs();
+  if (isLoading) {
+    return (
       <main className="max-w-full mx-2">
         <div className="flex">
           <div className="w-full">
@@ -36,14 +26,24 @@ export const ActiveJobs = () => {
           </div>
         </div>
       </main>
-    )
+    );
   }
   return (
     <div className="flex">
       <CardWrapper title={"Active Jobs"}>
-        {jobs.map((job) => (
-          <JobDisplay key={job.id} job={job} />
-        ))}
+        {jobs &&
+          jobs.map((job: Job) => {
+            return <JobDisplay key={job.id} job={job} />;
+          })}
+        {jobs?.length === 0 ? (
+          <Card className="w-full h-screen mt-4">
+            <CardHeader>
+              <CardTitle>
+                <span>No published job</span>
+              </CardTitle>
+            </CardHeader>
+          </Card>
+        ) : null}
       </CardWrapper>
     </div>
   );
