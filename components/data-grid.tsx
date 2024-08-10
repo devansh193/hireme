@@ -1,7 +1,14 @@
-import { Card, CardFooter, CardHeader, CardDescription, CardContent, CardTitle } from "@/components/ui/card";
+import {
+  Card,
+  CardFooter,
+  CardHeader,
+  CardDescription,
+  CardContent,
+  CardTitle,
+} from "@/components/ui/card";
 export const DataGrid = () => {
   return (
-    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pb-2 mb-8 mt-4">
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-2 mb-8 mt-4">
       <Card>
         <CardHeader>
           <CardTitle>
@@ -12,7 +19,7 @@ export const DataGrid = () => {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <h1 className="text-xl font-semibold">10</h1>
+          <h1 className="text-xl font-semibold">2</h1>
         </CardContent>
       </Card>
       <Card>
@@ -21,11 +28,11 @@ export const DataGrid = () => {
             <p>Inactive jobs</p>
           </CardTitle>
           <CardDescription>
-          <span>Total number of active jobs.</span>
+            <span>Total number of active jobs.</span>
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <h1 className="text-xl font-semibold">10</h1>
+          <h1 className="text-xl font-semibold">2</h1>
         </CardContent>
       </Card>
       <Card>
@@ -34,11 +41,11 @@ export const DataGrid = () => {
             <p>Total jobs</p>
           </CardTitle>
           <CardDescription>
-          <span>Total number of active jobs.</span>
+            <span>Total number of active jobs.</span>
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <h1 className="text-xl font-semibold">20</h1>
+          <h1 className="text-xl font-semibold">4</h1>
         </CardContent>
       </Card>
     </div>

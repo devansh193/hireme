@@ -1,30 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
-import { useQuery } from "@tanstack/react-query";
-import Sidebar from "@/components/Sidebar";
 import { Job } from "@prisma/client";
 import { JobDisplay, JobLoading } from "@/components/job-display";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
 import { useGetJobs } from "@/features/jobs/actions/use-get-jobs";
-import { GetJobSchemaType } from "@/zod/job";
-
-interface Filters {
-  title: string;
-  companyName: string;
-  location: string;
-  currency: string;
-  salRange: [number, number];
-}
 
 const JobsPage = () => {
-  const [filters, setFilters] = useState<Filters>({
-    title: "",
-    companyName: "",
-    location: "",
-    currency: "",
-    salRange: [0, 1000000],
-  });
-
   const { isLoading, data: jobs } = useGetJobs();
 
   if (isLoading) {

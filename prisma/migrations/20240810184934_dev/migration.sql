@@ -69,6 +69,7 @@ CREATE TABLE "Job" (
     "currency" "Currency" NOT NULL DEFAULT 'INR',
     "location" TEXT NOT NULL,
     "country" TEXT,
+    "status" "Status" NOT NULL DEFAULT 'ACTIVE',
 
     CONSTRAINT "Job_pkey" PRIMARY KEY ("id")
 );

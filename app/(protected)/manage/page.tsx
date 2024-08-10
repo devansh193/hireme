@@ -11,6 +11,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { DataGrid } from "@/components/data-grid";
+import { InActiveJobs } from "@/components/inactive-jobs";
 const ManageJobsPage = async () => {
   const session = await auth();
   const role = session?.user.role;
@@ -21,7 +22,11 @@ const ManageJobsPage = async () => {
   return (
     <div className="max-w-screen-2xl mx-auto w-full">
       <DataGrid />
-      <ActiveJobs />
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-2 mb-8 mt-4">
+    <ActiveJobs />
+    <InActiveJobs/>
+    </div>
+      
     </div>
   );
 };

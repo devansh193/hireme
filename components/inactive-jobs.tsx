@@ -5,31 +5,15 @@ import { JobDisplay, JobLoading } from "./job-display";
 import { Job } from "@prisma/client";
 import { fetchInActiveJobs } from "@/actions/job";
 import { useRouter } from "next/navigation";
+import { useGetInActiveJobs } from "@/features/jobs/actions/use-get-inactive-jobs";
 
 export const InActiveJobs = () => {
-  const router = useRouter();
-  const [jobs, setJobs] = useState<Job[]>([]);
-  const [loading, setLoading] = useState(false);
+  const {isLoading, data: inActiveJobs} = useGetInActiveJobs();
 
-  useEffect(() => {
-    const fetchJobs = async () => {
-      setLoading(true);
-      //@ts-ignore
-      const response = await fetchInActiveJobs();
-      if (response.status === "success") {
-        //@ts-ignore
-        setJobs(response.data);
-        router.refresh();
-      }
-      setLoading(false);
-    };
 
-    fetchJobs();
-  }, []);
-
-  if (loading) {
+  if (isLoading) {
     <div>
-      <CardWrapper cols={1} title={"Unpublished jobs"}>
+      <CardWrapper  title={"Unpublished jobs"}>
         <JobLoading />
       </CardWrapper>
     </div>;
@@ -37,8 +21,9 @@ export const InActiveJobs = () => {
 
   return (
     <div>
-      <CardWrapper cols={1} title={"Unpublished jobs"}>
-        {jobs.map((job) => (
+      <CardWrapper title={"Unpublished jobs"}>
+        {inActiveJobs &&
+        inActiveJobs.map((job: Job) => (
           <JobDisplay key={job.id} job={job} />
         ))}
       </CardWrapper>

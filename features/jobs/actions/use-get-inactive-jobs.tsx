@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchAllJobs } from "@/actions/job";
+import { fetchInActiveJobs } from "@/actions/job";
 
 
-export const useGetJobs = () => {
+export const useGetInActiveJobs = () => {
   const query = useQuery({
-    queryKey: ["jobs"],
+    queryKey: ["inactive"],
     queryFn: async () => {
-      const response = await fetchAllJobs(); 
+      const response = await fetchInActiveJobs(); 
       if (response.status === "error") {
         throw new Error(response.message);
       }

@@ -81,10 +81,38 @@ export const deleteJob = async (id: string): Promise<SAPayload> => {
   }
 };
 
-export const fetchActiveJobs = async () => {
+export const fetchAllJobs = async () => {
   try {
     const response = await prisma.job.findMany({
       where: {},
+    });
+    return { status: "success", data: response };
+  } catch (error) {
+    console.error(error);
+    return { status: "error", message: "Internal error" };
+  }
+};
+
+export const fetchActiveJobs = async () => {
+  try {
+    const response = await prisma.job.findMany({
+      where: {
+        status: "ACTIVE",
+      },
+    });
+    return { status: "success", data: response };
+  } catch (error) {
+    console.error(error);
+    return { status: "error", message: "Internal error" };
+  }
+};
+
+export const fetchInActiveJobs = async () => {
+  try {
+    const response = await prisma.job.findMany({
+      where: {
+        status: "INACTIVE",
+      },
     });
     return { status: "success", data: response };
   } catch (error) {
@@ -108,12 +136,14 @@ export const fetchJobDetails = async (id: string) => {
   }
 };
 
-
 const GetJobSchema = z.object({
   title: z.string().optional().default(""),
-  companyName: z.string().min(5, {
-    message: "Company Name must be at least 5 characters long.",
-  }).optional(),
+  companyName: z
+    .string()
+    .min(5, {
+      message: "Company Name must be at least 5 characters long.",
+    })
+    .optional(),
   location: z.string().optional().default(""),
   currency: z.enum(["INR", "USD"]).optional(),
   salRange: z.array(z.number()).optional().default([0, 1000000]),
@@ -134,8 +164,12 @@ export const getJobs = async (data: GetJobSchemaType) => {
     const jobs = await prisma.job.findMany({
       where: {
         ...(title && { title: { contains: title, mode: "insensitive" } }),
-        ...(companyName && { companyName: { contains: companyName, mode: "insensitive" } }),
-        ...(location && { location: { contains: location, mode: "insensitive" } }),
+        ...(companyName && {
+          companyName: { contains: companyName, mode: "insensitive" },
+        }),
+        ...(location && {
+          location: { contains: location, mode: "insensitive" },
+        }),
         ...(currency && { currency }),
       },
     });
