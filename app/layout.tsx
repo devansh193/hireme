@@ -6,6 +6,7 @@ import { Toaster } from "@/components/ui/toaster";
 import { SessionProvider } from "next-auth/react";
 import { auth } from "@/auth";
 import Footer from "@/components/Footer";
+import QueryProviders from "@/providers/query-provider";
 
 const fontSans = FontSans({
   subsets: ["latin"],
@@ -32,8 +33,10 @@ export default async function RootLayout({
             fontSans.variable
           )}
         >
+          <QueryProviders>
           {children}
           <Toaster />
+          </QueryProviders>
         </body>
       </SessionProvider>
     </html>

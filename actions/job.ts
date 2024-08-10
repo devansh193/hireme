@@ -93,7 +93,8 @@ export const fetchActiveJobs = async () => {
   }
 };
 
-export const fetchJobDetails = async ({ id }: { id: string }) => {
+export const fetchJobDetails = async (id: string) => {
+  console.log(id);
   try {
     const response = await prisma.job.findUnique({
       where: {
@@ -107,14 +108,12 @@ export const fetchJobDetails = async ({ id }: { id: string }) => {
   }
 };
 
+
 const GetJobSchema = z.object({
   title: z.string().optional().default(""),
-  companyName: z
-    .string()
-    .min(5, {
-      message: "Company Name must be at least 5 characters long.",
-    })
-    .optional(),
+  companyName: z.string().min(5, {
+    message: "Company Name must be at least 5 characters long.",
+  }).optional(),
   location: z.string().optional().default(""),
   currency: z.enum(["INR", "USD"]).optional(),
   salRange: z.array(z.number()).optional().default([0, 1000000]),
@@ -135,12 +134,8 @@ export const getJobs = async (data: GetJobSchemaType) => {
     const jobs = await prisma.job.findMany({
       where: {
         ...(title && { title: { contains: title, mode: "insensitive" } }),
-        ...(companyName && {
-          companyName: { contains: companyName, mode: "insensitive" },
-        }),
-        ...(location && {
-          location: { contains: location, mode: "insensitive" },
-        }),
+        ...(companyName && { companyName: { contains: companyName, mode: "insensitive" } }),
+        ...(location && { location: { contains: location, mode: "insensitive" } }),
         ...(currency && { currency }),
       },
     });
@@ -156,6 +151,7 @@ export const getJobs = async (data: GetJobSchemaType) => {
     return { status: "error", message: "Internal Server Error" };
   }
 };
+
 // export const updateJob = async ({id}:string) =>{
 //   const response = await prisma.job.update({})
 // }

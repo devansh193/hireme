@@ -1,5 +1,5 @@
 "use client";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -19,9 +19,10 @@ import {
 } from "@/components/ui/form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { NewJob, newJobSchema } from "@/zod/job";
+import { UpdateJob, UpdateJobSchema } from "@/zod/job";
 import { useToast } from "../ui/use-toast";
-import { fetchJobDetails, updateJob } from "@/actions/job";
+import { useGetJob } from "@/features/jobs/actions/use-get-job";
+import { useEditJob } from "@/features/jobs/actions/use-edit-job";
 
 type NewJobFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,26 +31,13 @@ type NewJobFormProps = {
 
 const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
   const { toast } = useToast();
-  const [jobDetails, setJobDetails] = useState<NewJob | null>(null);
 
-  useEffect(() => {
-    const getJobDetails = async () => {
-      const response = await fetchJobDetails({ id });
-      if (response.status === "success") {
-          setJobDetails(response.data || null)
-      } else {
-        toast({
-          title: "Failed to fetch job details",
-          variant: "destructive",
-        });
-        setOpen(false);
-      }
-    };
-    getJobDetails();
-  }, [id, setOpen, toast]);
+  const jobQuery = useGetJob(id);
+  const editMutation = useEditJob(id);
+  const jobDetails = jobQuery.data?.data;
 
-  const form = useForm<NewJob>({
-    resolver: zodResolver(newJobSchema),
+  const form = useForm<UpdateJob>({
+    resolver: zodResolver(UpdateJobSchema),
     defaultValues: jobDetails || {
       title: "",
       description: "",
@@ -66,44 +54,9 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
     }
   }, [jobDetails, form]);
 
-  const handleFormSubmit = async (values: NewJob) => {
-    const { currency, location } = values;
+  const handleFormSubmit = (values: UpdateJob) => {
 
-    if (currency !== "USD" && currency !== "INR") {
-      toast({
-        title: "Please select the currency",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (
-      location !== "REMOTE" &&
-      location !== "HYBRID" &&
-      location !== "OFFICE"
-    ) {
-      toast({
-        title: "Please select the location",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    const response = await updateJob({ ...values, id });
-
-    if (response?.status !== "success") {
-      toast({
-        title: response.message,
-        variant: "destructive",
-      });
-      setOpen(false);
-      return;
-    }
-
-    toast({
-      title: response.message,
-      variant: "default",
-    });
+    editMutation.mutate(values);
     setOpen(false);
   };
 

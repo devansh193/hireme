@@ -23,10 +23,10 @@ export const newJobSchema = z.object({
 });
 
 export const UpdateJobSchema = z.object({
+  id: z.string(),
   title: z.string().min(5, {
     message: "Title must contain at least 5 characters long.",
-  }),
-  id: z.string(),
+  }), 
   description: z.string().min(20, {
     message: "Description must contain at least 20 characters long.",
   }),
@@ -44,5 +44,21 @@ export const UpdateJobSchema = z.object({
   }),
 });
 
+const GetJobSchema = z.object({
+  title: z.string().optional().default(""),
+  companyName: z
+    .string()
+    .min(5, {
+      message: "Company Name must be at least 5 characters long.",
+    })
+    .optional(),
+  location: z.string().optional().default(""),
+  currency: z.enum(["INR", "USD"]).optional(),
+  salRange: z.array(z.number()).optional().default([0, 1000000]),
+});
+
+export type GetJobSchemaType = z.infer<typeof GetJobSchema>;
+
 export type NewJob = z.infer<typeof newJobSchema>;
 export type UpdateJob = z.infer<typeof UpdateJobSchema>;
+

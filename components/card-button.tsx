@@ -4,29 +4,20 @@ import { Job } from "@prisma/client";
 import { EditJobModal } from "./EditJobModal";
 import { Button } from "./ui/button";
 import { usePathname } from "next/navigation";
-import {deleteJob} from "@/actions/job";
-import { toast } from "./ui/use-toast";
+import { useDeleteJob } from "@/features/jobs/actions/use-delete-job";
 
 type CardButtonProps = {
   job: Job;
 };
 
 export const CardButton = ({ job }: CardButtonProps) => {
+  const deleteMutation = useDeleteJob(job.id);
   const { data: session } = useSession();
   const pathname = usePathname();
   const userRole = session?.user.role;
   
   const handleDelete = async ()=>{
-    const res = await deleteJob(job.id);
-    if(res.status==="success"){
-        toast({
-            description: "deleted!",
-        })
-    }else {
-        toast({
-            description: "failed to delete",
-        })
-    }
+    deleteMutation.mutate();
 }
 
   if(userRole === "ADMIN"){

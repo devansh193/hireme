@@ -1,4 +1,3 @@
-"use client";
 import { useState, useEffect, ChangeEvent } from "react";
 import { getJobs } from "@/actions/job";
 import { Slider } from "@/components/ui/slider";
@@ -76,9 +75,9 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
   }, [filters]);
 
   return (
-    <aside className="relative h-full p-4 min-w-48 border border-gray-200 rounded">
-      <h2 className="mb-4 font-semibold text-lg">Filters</h2>
-      <div className="flex flex-col gap-4">
+    <aside className="p-4 min-w-48 border border-gray-200 rounded">
+      <h2 className="mb-4">Job Filters</h2>
+      <div className="flex flex-col gap-2">
         <Input
           type="text"
           name="title"
@@ -91,7 +90,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
           name="companyName"
           placeholder="Company Name"
           onChange={handleFilterChange}
-          className="border p-2 rounded-md text-black"
+          className="border p-2 rounded-md"
         />
 
         <Select
@@ -102,7 +101,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
             });
           }}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="max-w">
             <SelectValue placeholder="Choose currency" />
           </SelectTrigger>
           <SelectContent>
@@ -119,7 +118,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
             });
           }}
         >
-          <SelectTrigger className="w-[180px]">
+          <SelectTrigger className="max-w">
             <SelectValue placeholder="Job Location" />
           </SelectTrigger>
           <SelectContent>
@@ -129,7 +128,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
           </SelectContent>
         </Select>
 
-        <div className="flex flex-col gap-2 mt-2">
+        <div className="flex flex-col gap-2">
           <Slider
             defaultValue={filters.salRange}
             max={1000000}
@@ -137,7 +136,7 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
             onValueChange={handleSliderChange}
             value={filters.salRange}
           />
-          <div className="flex justify-between">
+          <div className="flex justify-between text-sm">
             <span>
               Min: {formatSalary(filters.salRange[0], filters.currency)}
             </span>
@@ -152,6 +151,3 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
 };
 
 export default Sidebar;
-
-// <div className="fixed w-[250px] font-medium text-xs flex border flex-col items-center mt-4 pb-4">
-// <span className="text-2xl m-4">Filter Job</span>

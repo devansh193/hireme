@@ -22,12 +22,14 @@ import { NewJob, newJobSchema } from "@/zod/job";
 import { useToast } from "../ui/use-toast";
 import { createJob } from "@/actions/job";
 import { stat } from "fs";
+import { useCreateJob } from "@/features/jobs/actions/use-create-job";
 
 type NewJobFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const NewJobForm = ({ setOpen }: NewJobFormProps) => {
+  const mutation = useCreateJob();
   const { toast } = useToast();
 
   const form = useForm<NewJob>({
@@ -65,22 +67,7 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
       return;
     }
 
-
-    const response = await createJob(values);
-
-    if (response?.status !== "success") {
-      toast({
-        title: response.message,
-        variant: "destructive",
-      });
-      setOpen(false);
-      return;
-    }
-
-    toast({
-      title: response.message,
-      variant: "default",
-    });
+    mutation.mutate(values);
     setOpen(false);
   };
 
