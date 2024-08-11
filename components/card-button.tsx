@@ -14,7 +14,6 @@ export const CardButton = ({ job }: CardButtonProps) => {
   const deleteMutation = useDeleteJob(job.id);
   const { data: session } = useSession();
   const pathname = usePathname();
-  const userRole = session?.user.role;
   console.log(pathname);
   const handleDelete = async ()=>{
     deleteMutation.mutate();

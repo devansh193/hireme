@@ -22,11 +22,10 @@ const ManageJobsPage = async () => {
   return (
     <div className="max-w-screen-2xl mx-auto w-full">
       <DataGrid />
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-2 mb-8 mt-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-2 mb-8 mt-2">
     <ActiveJobs />
     <InActiveJobs/>
     </div>
-      
     </div>
   );
 };
