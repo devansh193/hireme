@@ -149,6 +149,7 @@ const GetJobSchema = z.object({
   location: z.string().optional().default(""),
   currency: z.enum(["INR", "USD"]).optional(),
   salRange: z.array(z.number()).optional().default([0, 1000000]),
+  status: z.string(),
 });
 
 type GetJobSchemaType = z.infer<typeof GetJobSchema>;
@@ -160,7 +161,7 @@ export const getJobs = async (data: GetJobSchemaType) => {
     return { status: "error", message: "Internal Server Error" };
   }
 
-  const { salRange, title, companyName, location, currency } = data;
+  const { salRange, title, companyName, location, currency, status } = data;
 
   try {
     const jobs = await prisma.job.findMany({
@@ -173,7 +174,10 @@ export const getJobs = async (data: GetJobSchemaType) => {
           location: { contains: location, mode: "insensitive" },
         }),
         ...(currency && { currency }),
+        status: "ACTIVE",
       },
+      
+      
     });
 
     const filteredJobs = jobs.filter((job) => {

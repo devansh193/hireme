@@ -5,7 +5,7 @@ import { Copyright, Github, GlobeIcon, Linkedin, Twitter } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="relative bottom-0 w-full h-20 flex justify-between items-center bg-white p-4 lg:px-14 border border-t-secondary">
+    <footer className="sticky bottom-0 w-full h-20 flex justify-between items-center bg-white p-4 lg:px-14 border border-t-secondary">
       <div className="flex justify-center items-center gap-5 font-normal text-slate-600 :">
         <Linkedin className="hover:text-gray-800 transition-colors cursor-pointer" />
         <Twitter className="hover:text-gray-800 transition-colors cursor-pointer" />

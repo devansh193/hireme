@@ -2,7 +2,7 @@ import { auth } from "@/auth";
 import Footer from "@/components/Footer";
 import GithuBadge from "@/components/GithubBadge";
 import Navbar from "@/components/Navbar";
-import { RecoilRoot } from "recoil";
+
 
 const HomePage = async () => {
   const session = await auth();
@@ -17,15 +17,16 @@ const HomePage = async () => {
             <p className="lg:text-4xl tracking-tight font-semibold text-slate-700">
               Join the #1 Open Source Job-Platform
             </p>
-            <h1 className="lg:text-8xl text-center tracking-tighter bg-gradient-to-r from-indigo-600 via-violet-500 to-blue-700 bg-clip-text text-transparent font-black">
-              100xJobs
+            <h1 className="lg:text-8xl text-center tracking-tighter bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-400 bg-clip-text text-transparent font-black py-4">
+              100xEngineers
             </h1>
-            <p className="lg:text-xl text-center text-slate-700/90 font-bold tracking-loose">
+            <p className="lg:text-xl text-center text-slate-700/90 font-bold tracking-loose mt-2">
               India&apos;s most rapidly growing developer community
             </p>
           </div>
         </section>
       </div>
+
     </main>
   );
 };

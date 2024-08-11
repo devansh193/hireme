@@ -18,10 +18,10 @@ export const DataGrid = () => {
   const inActiveJobs = useGetInActiveJobs();
   return (
     <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 pb-2 mb-8 mt-4">
-      <Card>
+      <Card className="bg-zinc-200/20 hover:bg-zinc-200/40 border shadow-md">
         <CardHeader>
           <CardTitle>
-            <p>Active jobs</p>
+            <p className="text-3xl">Active jobs</p>
           </CardTitle>
           <CardDescription>
             <span>Total number of active jobs.</span>
@@ -31,10 +31,10 @@ export const DataGrid = () => {
           <h1 className="text-2xl font-semibold">{activeJobs.data?.length}</h1>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="bg-zinc-200/20 hover:bg-zinc-200/40 border shadow-md">
         <CardHeader>
           <CardTitle>
-            <p>Inactive jobs</p>
+            <p className="text-3xl"> Inactive jobs</p>
           </CardTitle>
           <CardDescription>
             <span>Total number of active jobs.</span>
@@ -44,10 +44,10 @@ export const DataGrid = () => {
           <h1 className="text-2xl font-semibold">{inActiveJobs.data?.length}</h1>
         </CardContent>
       </Card>
-      <Card>
+      <Card className="bg-zinc-200/20 hover:bg-zinc-200/40 border shadow-md">
         <CardHeader>
           <CardTitle>
-            <p>Total jobs</p>
+            <p className="text-3xl">Total jobs</p>
           </CardTitle>
           <CardDescription>
             <span>Total number of active jobs.</span>

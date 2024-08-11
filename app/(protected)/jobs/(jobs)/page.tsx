@@ -3,12 +3,12 @@ import { useState, useEffect } from "react";
 import { Job } from "@prisma/client";
 import { JobDisplay, JobLoading } from "@/components/job-display";
 import { Card, CardHeader, CardTitle } from "@/components/ui/card";
-import { useGetJobs } from "@/features/jobs/actions/use-get-jobs";
+import { useGetActiveJobs } from "@/features/jobs/actions/use-get-active-jobs";
 import Sidebar from "@/components/Sidebar";
 
 const JobsPage = () => {
   const [jobs, setJobs] = useState<Job[]>([]);
-  const { isLoading, error, data } = useGetJobs();
+  const { isLoading, error, data } = useGetActiveJobs();
 
   useEffect(() => {
     if (data) {

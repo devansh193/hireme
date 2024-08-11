@@ -2,14 +2,6 @@ import { auth } from "@/auth";
 
 import { redirect } from "next/navigation";
 import { ActiveJobs } from "@/components/active-jobs";
-import {
-  Card,
-  CardFooter,
-  CardHeader,
-  CardDescription,
-  CardContent,
-  CardTitle,
-} from "@/components/ui/card";
 import { DataGrid } from "@/components/data-grid";
 import { InActiveJobs } from "@/components/inactive-jobs";
 const ManageJobsPage = async () => {

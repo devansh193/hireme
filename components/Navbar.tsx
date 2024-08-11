@@ -47,8 +47,8 @@ const Navbar = ({ session }: NavbarProps) => {
   return (
     <nav className="relative w-full flex items-center justify-between h-14 border-t shadow border-gray-150 rounded-lg px-3 transition-all backdrop-blur-lg bg-background/50">
       <div className="flex justify-center items-center gap-10">
-        <h3 className="text-xl bg-gradient-to-r from-indigo-600 via-violet-500 to-blue-700 bg-clip-text text-transparent font-black hidden md:block">
-          100xJobs
+        <h3 className="text-2xl bg-gradient-to-r from-zinc-900 via-zinc-600 to-zinc-400 bg-clip-text text-transparent font-black hidden md:block">
+          100xEngineers
         </h3>
 
         <div className="flex justify-center items-center gap-5 text-gray-500 font-semibold tracking-tighter">
