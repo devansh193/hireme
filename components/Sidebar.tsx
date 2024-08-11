@@ -13,7 +13,7 @@ import { Job } from "@prisma/client";
 
 interface SidebarProps {
   setJobs: (jobs: Job[]) => void;
-  setLoading: (value: boolean) => void;
+ // setLoading: (value: boolean) => void;
 }
 
 interface Filters {
@@ -36,7 +36,7 @@ const formatSalary = (value: number, currency: string) => {
   return `${formattedValue} ${unit}`;
 };
 
-const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
+const Sidebar = ({ setJobs }: SidebarProps) => {
   const [filters, setFilters] = useState<Filters>({
     title: "",
     companyName: "",
@@ -60,14 +60,13 @@ const Sidebar = ({ setJobs, setLoading }: SidebarProps) => {
   };
 
   const fetchJobs = async () => {
-    setLoading(true);
+
     //@ts-ignore
     const response = await getJobs(filters);
     if (response.status === "success") {
       //@ts-ignore
       setJobs(response.data);
     }
-    setLoading(false);
   };
 
   useEffect(() => {

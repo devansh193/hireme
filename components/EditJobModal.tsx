@@ -18,6 +18,7 @@ type EditModalProp ={
 
 export const EditJobModal = ({id}:EditModalProp) => {
   const [open, setOpen] = useState(false);
+  console.log(id);
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

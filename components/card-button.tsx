@@ -15,12 +15,12 @@ export const CardButton = ({ job }: CardButtonProps) => {
   const { data: session } = useSession();
   const pathname = usePathname();
   const userRole = session?.user.role;
-  
+  console.log(pathname);
   const handleDelete = async ()=>{
     deleteMutation.mutate();
 }
 
-  if(userRole === "ADMIN"){
+  if(pathname === "/manage"){
     return (
       <>
           <div className="">

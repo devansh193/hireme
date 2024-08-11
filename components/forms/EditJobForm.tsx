@@ -1,5 +1,5 @@
 "use client";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import {
@@ -20,9 +20,9 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { UpdateJob, UpdateJobSchema } from "@/zod/job";
-import { useToast } from "../ui/use-toast";
 import { useGetJob } from "@/features/jobs/actions/use-get-job";
 import { useEditJob } from "@/features/jobs/actions/use-edit-job";
+import { fetchJobDetails } from "@/actions/job";
 
 type NewJobFormProps = {
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
@@ -30,11 +30,23 @@ type NewJobFormProps = {
 };
 
 const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
-  const { toast } = useToast();
 
-  const jobQuery = useGetJob(id);
+  const [jobDetails, setJobDetails] = useState<UpdateJob | null>(null);
   const editMutation = useEditJob(id);
-  const jobDetails = jobQuery.data?.data;
+
+
+  useEffect(() => {
+    const getJobDetails = async () => {
+      const response = await fetchJobDetails(id );
+      if (response.status === "success") {
+        setJobDetails(response.data || null);
+      } else {
+        setOpen(false);
+      }
+    };
+    getJobDetails();
+  }, [id, setOpen]);
+  
 
   const form = useForm<UpdateJob>({
     resolver: zodResolver(UpdateJobSchema),
@@ -45,6 +57,7 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
       salary: "",
       currency: "",
       location: "",
+      status: "",
     },
   });
 
@@ -52,7 +65,7 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
     if (jobDetails) {
       form.reset(jobDetails);
     }
-  }, [jobDetails, form]);
+  }, [jobDetails]);
 
   const handleFormSubmit = (values: UpdateJob) => {
 
@@ -151,7 +164,7 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
                   >
                     <FormControl>
                       <SelectTrigger className="w-24">
-                        <SelectValue placeholder="select" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -204,6 +217,34 @@ const EditJobForm = ({ setOpen, id }: NewJobFormProps) => {
                     <SelectItem value="REMOTE">Remote</SelectItem>
                     <SelectItem value="HYBRID">Hybrid</SelectItem>
                     <SelectItem value="OFFICE">Office</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold text-gray-800">
+                  Status *
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select location type" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="ACTIVE">ACTIVE</SelectItem>
+                    <SelectItem value="INACTIVE">INACTIVE</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

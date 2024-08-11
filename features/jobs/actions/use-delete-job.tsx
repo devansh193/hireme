@@ -12,6 +12,8 @@ export const useDeleteJob = (id: string) =>{
         onSuccess: () =>{
             toast({description:"Item deleted successfully."})
             queryClient.invalidateQueries({queryKey:["jobs"]});
+            queryClient.invalidateQueries({queryKey:["active"]});
+            queryClient.invalidateQueries({queryKey:["inactive"]});
         },
         onError:() =>{
             toast({description:"Failed to delete item."})

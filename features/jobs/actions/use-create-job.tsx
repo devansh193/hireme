@@ -13,6 +13,8 @@ export const useCreateJob = () => {
     onSuccess: (data: SAPayload) => {
       if (data.status === "success") {
         queryClient.invalidateQueries({queryKey: ["jobs"]});
+        queryClient.invalidateQueries({queryKey: ["active"]});
+        queryClient.invalidateQueries({queryKey: ["inactive"]});
       }
     },
     onError: (error: unknown) => {

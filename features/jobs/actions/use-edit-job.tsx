@@ -15,6 +15,9 @@ export const useEditJob = (id:string) =>{
         onSuccess: ()=>{
             toast({description:" Edited successfully"});
             queryClient.invalidateQueries({queryKey:["jobs"]});
+            queryClient.invalidateQueries({queryKey:["job"]});
+            queryClient.invalidateQueries({queryKey:["active"]});
+            queryClient.invalidateQueries({queryKey:["inactive"]});
         },
         onError: ()=>{
             toast({description:"Failed to edit."});

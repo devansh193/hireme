@@ -41,6 +41,7 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
       salary: "",
       currency: "",
       location: "",
+      status:"",
     },
   });
 
@@ -162,7 +163,7 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
                   >
                     <FormControl>
                       <SelectTrigger className="w-24">
-                        <SelectValue placeholder="select" />
+                        <SelectValue placeholder="Select" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -192,7 +193,6 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
             />
           </div>
         </div>
-
         <div className="flex flex-col gap-1">
           <FormField
             control={form.control}
@@ -215,6 +215,34 @@ const NewJobForm = ({ setOpen }: NewJobFormProps) => {
                     <SelectItem value="REMOTE">Remote</SelectItem>
                     <SelectItem value="HYBRID">Hybird</SelectItem>
                     <SelectItem value="OFFICE">Office</SelectItem>
+                  </SelectContent>
+                </Select>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+        <div className="flex flex-col gap-1">
+          <FormField
+            control={form.control}
+            name="status"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-sm font-semibold text-gray-800">
+                  Status *
+                </FormLabel>
+                <Select
+                  onValueChange={field.onChange}
+                  defaultValue={field.value}
+                >
+                  <FormControl>
+                    <SelectTrigger>
+                      <SelectValue placeholder="Select status" />
+                    </SelectTrigger>
+                  </FormControl>
+                  <SelectContent>
+                    <SelectItem value="ACTIVE">ACTIVE</SelectItem>
+                    <SelectItem value="INACTIVE">INACTIVE</SelectItem>
                   </SelectContent>
                 </Select>
                 <FormMessage />

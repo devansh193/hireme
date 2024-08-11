@@ -19,6 +19,9 @@ export const newJobSchema = z.object({
   location: z.string({
     required_error: "Please select one location type",
   }),
+  status: z.string({
+    required_error:"Status required."
+  }),
 
 });
 
@@ -42,6 +45,9 @@ export const UpdateJobSchema = z.object({
   location: z.string({
     required_error: "Please select one location type",
   }),
+  status: z.string({
+    required_error:"Status required."
+  }),
 });
 
 const GetJobSchema = z.object({
@@ -55,6 +61,7 @@ const GetJobSchema = z.object({
   location: z.string().optional().default(""),
   currency: z.enum(["INR", "USD"]).optional(),
   salRange: z.array(z.number()).optional().default([0, 1000000]),
+ 
 });
 
 export type GetJobSchemaType = z.infer<typeof GetJobSchema>;

@@ -4,7 +4,7 @@ import { auth } from "@/auth";
 import { SAPayload } from "@/types";
 import { NewJob, UpdateJob } from "@/zod/job";
 import { prisma } from "@/lib/db";
-import { Currency } from "@prisma/client";
+import { Currency, Status } from "@prisma/client";
 import { z } from "zod";
 
 export const createJob = async (data: NewJob): Promise<SAPayload> => {
@@ -23,6 +23,7 @@ export const createJob = async (data: NewJob): Promise<SAPayload> => {
         currency: data.currency as Currency,
         salary: data.salary,
         location: data.location,
+        status: data.status as Status,
       },
     });
     return { status: "success", message: "Job created Successfully" };
@@ -51,6 +52,7 @@ export const updateJob = async (data: UpdateJob): Promise<SAPayload> => {
         currency: data.currency as Currency,
         salary: data.salary,
         location: data.location,
+        status: data.status as Status,
       },
     });
 
