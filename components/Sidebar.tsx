@@ -13,7 +13,7 @@ import { Job } from "@prisma/client";
 
 interface SidebarProps {
   setJobs: (jobs: Job[]) => void;
- // setLoading: (value: boolean) => void;
+  // setLoading: (value: boolean) => void;
 }
 
 interface Filters {
@@ -60,8 +60,7 @@ const Sidebar = ({ setJobs }: SidebarProps) => {
   };
 
   const fetchJobs = async () => {
-
-    //@ts-ignore
+      //@ts-ignore
     const response = await getJobs(filters);
     if (response.status === "success") {
       //@ts-ignore
@@ -70,7 +69,10 @@ const Sidebar = ({ setJobs }: SidebarProps) => {
   };
 
   useEffect(() => {
-    fetchJobs();
+    const timeoutId = setTimeout(()=>{
+      fetchJobs();
+    },1000);
+    return ()=> clearTimeout(timeoutId);
   }, [filters]);
 
   return (
@@ -127,7 +129,7 @@ const Sidebar = ({ setJobs }: SidebarProps) => {
           </SelectContent>
         </Select>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 mt-4">
           <Slider
             defaultValue={filters.salRange}
             max={1000000}
