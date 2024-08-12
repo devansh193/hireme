@@ -71,7 +71,7 @@ const Sidebar = ({ setJobs }: SidebarProps) => {
   useEffect(() => {
     const timeoutId = setTimeout(()=>{
       fetchJobs();
-    },1000);
+    },300);
     return ()=> clearTimeout(timeoutId);
   }, [filters]);
 
