@@ -7,8 +7,8 @@ Follow these steps to set up the repository locally and run it.
 1. Clone the repository and navigate to the project directory:
 
    ```bash
-   git clone https://github.com/code100x/job-board/
-   cd job-board
+   git clone https://github.com/devansh193/hireme/
+   cd hireme
    ```
 
 2. Install the necessary dependencies:
